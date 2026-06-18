@@ -23,7 +23,7 @@ Ein einfacher Taschenrechner in C#, der grundlegende mathematische Operationen d
 
 ## Anforderungen
 
-- .NET Framework oder .NET Core
+- .NET
 - Visual Studio oder eine andere C# IDE
 
 ## Autor
