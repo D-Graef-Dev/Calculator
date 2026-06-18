@@ -1,3 +1,7 @@
 <Solution>
+  <Folder Name="/Projektmappenelemente/">
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
   <Project Path="TR/TR.csproj" />
 </Solution>
