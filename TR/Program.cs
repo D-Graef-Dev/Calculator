@@ -84,7 +84,9 @@ namespace TR
                 case '/':
                     if (eingabezahl2 == 0)
                     {
-                        Console.WriteLine("Fehler: Division durch Null nicht nöglich)");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Fehler: Division durch Null nicht nöglich!");
+                        Console.ResetColor();
                         return;
                     }
                     ergebnis = eingabezahl1 / eingabezahl2;
