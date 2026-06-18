@@ -98,8 +98,6 @@ namespace TR
             }
 
 
-
-
             Console.Write($"Das ergebnis von {eingabezahl1} {operatorEingabe} {eingabezahl2} ist: {ergebnis}");
 
 
