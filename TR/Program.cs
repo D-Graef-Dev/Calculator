@@ -4,12 +4,34 @@ namespace TR
 {
     internal class Program
     {
-        static void Check_Input_Number()
+        static double GetValidNumber(string text)
         {
-
+            Console.Write(text);
+            double zahl;
+            while (!double.TryParse(Console.ReadLine(), out zahl))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Ungültige Eingabe! Bitte versuche es mit einer Zahl erneut: ");
+                Console.ResetColor();
+            }
+            return zahl;
         }
 
-         
+        static char GetValidOperator(string text)
+        {
+            Console.Write(text);
+            char eingabe;
+            while (!char.TryParse(Console.ReadLine(), out eingabe) || (eingabe != '+' && eingabe != '-' && eingabe != '*' && eingabe != '/'))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Ungültige Eingabe! Bitte gib einen gültigen Operator ein (+, -, *, /): ");
+                Console.ResetColor();
+            }
+            return eingabe;
+        }
+
+
+
 
         static void Main(string[] args)
         {
@@ -22,86 +44,77 @@ namespace TR
             Console.WriteLine("--- Calculator v0.1 ---");
 
 
-            //----- Zahl 1 abfragen -----
-            Console.Write("Gib die erste Zahl ein: ");
 
-            //while Schleife zum Prüfen ob TryParse False ist
-            //TryParse https://learn.microsoft.com/de-de/dotnet/api/system.int32.tryparse?view=net-10.0
-            //
-            while (!double.TryParse(Console.ReadLine(), out eingabezahl1))
+                     
+            
+
+
+            while (true)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("Ungültige Eingabe! Bitte versuche es mit einer Zahl erneut: ");
-                Console.ResetColor();
-            }
-            //Debug ausgabe der Zahl
-            //
-            if (debug_tr)
-            {
-                Console.WriteLine($"Zahl 1 ist: {eingabezahl1}");
-            }
+                //----- Zahl 1 abfragen -----
+                eingabezahl1 = GetValidNumber("Gib die erste Zahl ein: ");
+                //----- Operator abfragen -----
+                operatorEingabe = GetValidOperator("Gib einen Operator ein (+, -, *, /): ");
+                //----- Zahl 2 abfragen -----
+                eingabezahl2 = GetValidNumber("Gib die zweite Zahl ein: ");
 
 
-            //----- Operator abfragen -----
-            Console.Write("Gib einen Operator ein (+, -, *, /): ");
-            //Die Schleife bis eingabe gültig ist
-            //
-            while (!char.TryParse(Console.ReadLine(), out operatorEingabe) || (operatorEingabe != '+' && operatorEingabe != '-' && operatorEingabe != '*' && operatorEingabe != '/'))
-            {
-                Console.Write("Ungültige EIngabe! Bitte gib einen gültigen Operator ein (+, -, *, /): ");
-            }
-
-
-
-            //----- Zahl 2 abfragen -----
-            Console.Write("Gib die zweite Zahl ein: ");
-            //while schleife zum prüfen wie oben
-            while (!double.TryParse(Console.ReadLine(), out eingabezahl2))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("Ungültige Eingabe! Bitte versuche es mit einer Zahl erneut: ");
-                Console.ResetColor();
-            }
-            //Debug ausgabe der Zahl
-            if (debug_tr)
-            {
-                Console.WriteLine($"Zahl 2 ist: {eingabezahl2}");
-            }
-
-
-            //----- Rechnen -----
-            switch (operatorEingabe)
-            {
-                case '+':
-                    ergebnis = eingabezahl1 + eingabezahl2;
-                    break;
-                case '-':
-                    ergebnis = eingabezahl1 - eingabezahl2;
-                    break;
-                case '*':
-                    ergebnis = eingabezahl1 * eingabezahl2;
-                    break;
-                case '/':
-                    if (eingabezahl2 == 0)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Fehler: Division durch Null nicht nöglich!");
-                        Console.ResetColor();
+                //----- Rechnen -----
+                switch (operatorEingabe)
+                {
+                    case '+':
+                        ergebnis = eingabezahl1 + eingabezahl2;
+                        break;
+                    case '-':
+                        ergebnis = eingabezahl1 - eingabezahl2;
+                        break;
+                    case '*':
+                        ergebnis = eingabezahl1 * eingabezahl2;
+                        break;
+                    case '/':
+                        if (eingabezahl2 == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Fehler: Division durch Null nicht nöglich!");
+                            Console.ResetColor();
+                            continue;
+                        }
+                        ergebnis = eingabezahl1 / eingabezahl2;
+                        break;
+                    default:
+                        Console.WriteLine("Fehler!");
                         return;
+
+                }
+                Console.Write($"Das ergebnis von {eingabezahl1} {operatorEingabe} {eingabezahl2} ist: {ergebnis}");
+
+                //----- Abbrechen bzw Neustarten -----
+                while (true)
+                {
+                    Console.Write("\nNoch eine Berechnung? (j/n)");
+                    string wiederholung = Console.ReadLine().ToLower();
+
+                    if (wiederholung == "j")
+                    {
+                        break;
                     }
-                    ergebnis = eingabezahl1 / eingabezahl2;
-                    break;
-                default:
-                    Console.WriteLine("Fehler!");
-                    return;
-
+                    else if (wiederholung == "n")
+                    {
+                        Environment.Exit(0);
+                    }
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Ungültige Eingabe. Bitte gib 'j' oder 'n' ein.");
+                    Console.ResetColor();
+                }
+                
             }
+            
 
 
-            Console.Write($"Das ergebnis von {eingabezahl1} {operatorEingabe} {eingabezahl2} ist: {ergebnis}");
+            
 
 
-            Console.ReadKey();
+
         }
     }
 }
