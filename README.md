@@ -1,4 +1,4 @@
-# Calculator v0.1
+# Calculator v0.1.0
 
 Ein einfacher Taschenrechner in C#, der grundlegende mathematische Operationen durchführt.
 
